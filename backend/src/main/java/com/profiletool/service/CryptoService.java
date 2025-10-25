@@ -2,15 +2,14 @@ package com.profiletool.service;
 
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import java.nio.ByteBuffer;
-import java.security.NoSuchAlgorithmException;
+import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.Signature;
@@ -24,7 +23,8 @@ public class CryptoService {
 
     private static final String ENCRYPTION_ALGORITHM = "AES/GCM/NoPadding";
     private static final int GCM_IV_LENGTH = 12; // 96 bits
-    private static final int GCM_TAG_LENGTH = 16; // 128 bits
+    private static final int GCM_TAG_LENGTH = 16; // 128 bits (in bytes)
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     static {
         Security.addProvider(new BouncyCastleProvider());
@@ -37,13 +37,16 @@ public class CryptoService {
      * @return A hex-encoded string representing the SHA-256 checksum.
      */
     public String calculateSha256Checksum(byte[] content) {
+        if (content == null) {
+            throw new IllegalArgumentException("content must not be null");
+        }
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(content);
             return bytesToHex(encodedhash);
-        } catch (NoSuchAlgorithmException e) {
-            // This should never happen as SHA-256 is a standard algorithm
-            throw new RuntimeException("Unable to find SHA-256 algorithm", e);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            // SHA-256 should always be available on a compliant JVM
+            throw new IllegalStateException("SHA-256 algorithm not available", e);
         }
     }
 
@@ -66,12 +69,18 @@ public class CryptoService {
      * @param data The plaintext data to be encrypted.
      * @param key  The secret key for encryption.
      * @return A byte array containing the IV prepended to the ciphertext.
-     * @throws Exception if the encryption process fails.
+    * @throws GeneralSecurityException if the encryption process fails.
      */
-    public byte[] encrypt(byte[] data, SecretKey key) throws Exception {
+    public byte[] encrypt(byte[] data, SecretKey key) throws GeneralSecurityException {
+        if (data == null) {
+            throw new IllegalArgumentException("data must not be null");
+        }
+        if (key == null) {
+            throw new IllegalArgumentException("key must not be null");
+        }
+
         byte[] iv = new byte[GCM_IV_LENGTH];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(iv);
+        SECURE_RANDOM.nextBytes(iv);
 
         Cipher cipher = Cipher.getInstance(ENCRYPTION_ALGORITHM, "BC");
         GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH * 8, iv);
@@ -92,9 +101,16 @@ public class CryptoService {
      * @param encryptedDataWithIv The ciphertext with the IV prepended.
      * @param key                 The secret key for decryption.
      * @return The decrypted plaintext data.
-     * @throws Exception if the decryption process fails.
+    * @throws GeneralSecurityException if the decryption process fails.
      */
-    public byte[] decrypt(byte[] encryptedDataWithIv, SecretKey key) throws Exception {
+    public byte[] decrypt(byte[] encryptedDataWithIv, SecretKey key) throws GeneralSecurityException {
+        if (encryptedDataWithIv == null) {
+            throw new IllegalArgumentException("encryptedDataWithIv must not be null");
+        }
+        if (key == null) {
+            throw new IllegalArgumentException("key must not be null");
+        }
+
         ByteBuffer byteBuffer = ByteBuffer.wrap(encryptedDataWithIv);
 
         byte[] iv = new byte[GCM_IV_LENGTH];
@@ -116,9 +132,16 @@ public class CryptoService {
      * @param content    The content to be signed.
      * @param privateKey The RSA private key to use for signing.
      * @return A Base64-encoded string representing the digital signature.
-     * @throws Exception if the signing process fails.
+    * @throws GeneralSecurityException if the signing process fails.
      */
-    public String generateSignature(byte[] content, java.security.PrivateKey privateKey) throws Exception {
+    public String generateSignature(byte[] content, java.security.PrivateKey privateKey) throws GeneralSecurityException {
+        if (content == null) {
+            throw new IllegalArgumentException("content must not be null");
+        }
+        if (privateKey == null) {
+            throw new IllegalArgumentException("privateKey must not be null");
+        }
+
         Signature rsa = Signature.getInstance("SHA256withRSA", "BC");
         rsa.initSign(privateKey);
         rsa.update(content);
