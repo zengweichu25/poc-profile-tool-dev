@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "1.1.0",
+  "createdTimestamp": 1754288400000,
+  "checksum": "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8",
+  "signature": "some-signature-value",
+  "profile": {
+    "name": "Human Resources Management System",
+    "technicalCode": "HRMS_APP",
+    "version": "1.0.0",
+    "namings": {
+      "en_US": "Human Resources Management System",
+      "es_ES": "Sistema de Gestión de Recursos Humanos",
+      "fr_FR": "Système de Gestion des Ressources Humaines"
+    },
+    "permissionGroups": [
+      {
+        "name": "Employee Management",
+        "seq": 1,
+        "namings": {
+          "en_US": "Employee Management",
+          "es_ES": "Gestión de Empleados",
+          "fr_FR": "Gestion des Employés"
+        }
+      },
+      {
+        "name": "Recruitment",
+        "seq": 2,
+        "namings": {
+          "en_US": "Recruitment",
+          "es_ES": "Reclutamiento",
+          "fr_FR": "Recrutement"
+        }
+      },
+      {
+        "name": "Payroll",
+        "seq": 3,
+        "namings": {
+          "en_US": "Payroll",
+          "es_ES": "Nómina",
+          "fr_FR": "Paie"
+        }
+      },
+      {
+        "name": "System Settings",
+        "seq": 4,
+        "namings": {
+          "en_US": "System Settings",
+          "es_ES": "Configuración del Sistema",
+          "fr_FR": "Paramètres du Système"
+        }
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Create or Edit Employee",
+        "technicalCode": "EMPLOYEE.CREATE_EDIT",
+        "groupName": "Employee Management",
+        "seq": 1,
+        "namings": {
+          "en_US": "Create or Edit Employee",
+          "es_ES": "Crear o Editar Empleado",
+          "fr_FR": "Créer ou Modifier un Employé"
+        }
+      },
+      {
+        "name": "Terminate Employee",
+        "technicalCode": "EMPLOYEE.TERMINATE",
+        "groupName": "Employee Management",
+        "seq": 2,
+        "namings": {
+          "en_US": "Terminate Employee",
+          "es_ES": "Despedir Empleado",
+          "fr_FR": "Licencier un Employé"
+        }
+      },
+      {
+        "name": "Create Job Posting",
+        "technicalCode": "RECRUITMENT.CREATE_POSTING",
+        "groupName": "Recruitment",
+        "seq": 3,
+        "namings": {
+          "en_US": "Create Job Posting",
+          "es_ES": "Crear Oferta de Trabajo",
+          "fr_FR": "Créer une Offre d'Emploi"
+        }
+      },
+      {
+        "name": "Manage Applicants",
+        "technicalCode": "RECRUITMENT.MANAGE_APPLICANTS",
+        "groupName": "Recruitment",
+        "seq": 4,
+        "namings": {
+          "en_US": "Manage Applicants",
+          "es_ES": "Gestionar Solicitantes",
+          "fr_FR": "Gérer les Candidats"
+        }
+      },
+      {
+        "name": "Run Payroll",
+        "technicalCode": "PAYROLL.RUN",
+        "groupName": "Payroll",
+        "seq": 5,
+        "namings": {
+          "en_US": "Run Payroll",
+          "es_ES": "Ejecutar Nómina",
+          "fr_FR": "Exécuter la Paie"
+        }
+      },
+      {
+        "name": "Configure System Settings",
+        "technicalCode": "SETTINGS.CONFIGURE",
+        "groupName": "System Settings",
+        "seq": 6,
+        "namings": {
+          "en_US": "Configure System Settings",
+          "es_ES": "Configurar los Ajustes del Sistema",
+          "fr_FR": "Configurer les Paramètres du Système"
+        }
+      }
+    ],
+    "templateTypes": [
+      {
+        "name": "Employee Record",
+        "technicalCode": "hrms.employee",
+        "configurable": true,
+        "namings": {
+          "en_US": "Employee Record",
+          "es_ES": "Registro de Empleado",
+          "fr_FR": "Dossier de l'Employé"
+        },
+        "attributes": [
+          {
+            "name": "Full Name",
+            "technicalCode": "fullName",
+            "namings": {
+              "en_US": "Full Name",
+              "es_ES": "Nombre Completo",
+              "fr_FR": "Nom Complet"
+            }
+          },
+          {
+            "name": "Department",
+            "technicalCode": "department",
+            "namings": {
+              "en_US": "Department",
+              "es_ES": "Departamento",
+              "fr_FR": "Département"
+            }
+          },
+          {
+            "name": "Salary",
+            "technicalCode": "salary",
+            "namings": {
+              "en_US": "Salary",
+              "es_ES": "Salario",
+              "fr_FR": "Salaire"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Job Application",
+        "technicalCode": "hrms.jobapplication",
+        "configurable": true,
+        "namings": {
+          "en_US": "Job Application",
+          "es_ES": "Solicitud de Empleo",
+          "fr_FR": "Candidature d'Emploi"
+        },
+        "attributes": [
+          {
+            "name": "Applicant Name",
+            "technicalCode": "applicantName",
+            "namings": {
+              "en_US": "Applicant Name",
+              "es_ES": "Nombre del Solicitante",
+              "fr_FR": "Nom du Candidat"
+            }
+          },
+          {
+            "name": "Position",
+            "technicalCode": "position",
+            "namings": {
+              "en_US": "Position",
+              "es_ES": "Posición",
+              "fr_FR": "Poste"
+            }
+          }
+        ]
+      }
+    ],
+    "templateActions": [
+      {
+        "technicalCode": "hrms.employee.onboard",
+        "name": "Onboard New Employee",
+        "namings": {
+          "en_US": "Onboard New Employee",
+          "es_ES": "Incorporar Nuevo Empleado",
+          "fr_FR": "Intégrer un Nouvel Employé"
+        }
+      },
+      {
+        "technicalCode": "hrms.employee.offboard",
+        "name": "Offboard Employee",
+        "namings": {
+          "en_US": "Offboard Employee",
+          "es_ES": "Desvincular Empleado",
+          "fr_FR": "Départ de l'Employé"
+        }
+      },
+      {
+        "technicalCode": "hrms.payroll.processed",
+        "name": "Process Payroll",
+        "namings": {
+          "en_US": "Process Payroll",
+          "es_ES": "Procesar Nómina",
+          "fr_FR": "Traiter la Paie"
+        }
+      }
+    ],
+    "workflowActions": [
+      {
+        "name": "Approve Promotion",
+        "technicalCode": "approve_promotion",
+        "namings": {
+          "en_US": "Approve Promotion",
+          "es_ES": "Aprobar Promoción",
+          "fr_FR": "Approuver la Promotion"
+        }
+      },
+      {
+        "name": "Approve Time Off Request",
+        "technicalCode": "approve_timeoff",
+        "namings": {
+          "en_US": "Approve Time Off Request",
+          "es_ES": "Aprobar Solicitud de Tiempo Libre",
+          "fr_FR": "Approuver la Demande de Congé"
+        }
+      }
+    ],
+    "workflowTemplateTypes": [
+      {
+        "name": "Performance Review",
+        "technicalCode": "hrms.performancereview",
+        "namings": {
+          "en_US": "Performance Review",
+          "es_ES": "Evaluación de Desempeño",
+          "fr_FR": "Évaluation de Performance"
+        },
+        "attributes": [
+          {
+            "name": "Employee Name",
+            "technicalCode": "employeeName",
+            "namings": {
+              "en_US": "Employee Name",
+              "es_ES": "Nombre del Empleado",
+              "fr_FR": "Nom de l'Employé"
+            }
+          },
+          {
+            "name": "Reviewer",
+            "technicalCode": "reviewer",
+            "namings": {
+              "en_US": "Reviewer",
+              "es_ES": "Revisor",
+              "fr_FR": "Évaluateur"
+            }
+          },
+          {
+            "name": "Rating",
+            "technicalCode": "rating",
+            "namings": {
+              "en_US": "Rating",
+              "es_ES": "Calificación",
+              "fr_FR": "Notation"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "defaultConfigurationSet": [
+    {
+      "name": "HR Manager",
+      "systemRole": false,
+      "permissions": [
+        {
+          "technicalCode": "EMPLOYEE.CREATE_EDIT",
+          "applicationCode": "HRMS_APP"
+        },
+        {
+          "technicalCode": "EMPLOYEE.TERMINATE",
+          "applicationCode": "HRMS_APP"
+        },
+        {
+          "technicalCode": "RECRUITMENT.CREATE_POSTING",
+          "applicationCode": "HRMS_APP"
+        },
+        {
+          "technicalCode": "RECRUITMENT.MANAGE_APPLICANTS",
+          "applicationCode": "HRMS_APP"
+        },
+        {
+          "technicalCode": "PAYROLL.RUN",
+          "applicationCode": "HRMS_APP"
+        }
+      ]
+    },
+    {
+      "name": "HR Assistant",
+      "systemRole": false,
+      "permissions": [
+        {
+          "technicalCode": "EMPLOYEE.CREATE_EDIT",
+          "applicationCode": "HRMS_APP"
+        },
+        {
+          "technicalCode": "RECRUITMENT.MANAGE_APPLICANTS",
+          "applicationCode": "HRMS_APP"
+        }
+      ]
+    }
+  ]
+}
+
