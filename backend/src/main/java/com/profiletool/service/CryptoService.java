@@ -14,8 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.Signature;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Service for handling all cryptographic operations, including SHA-256 checksum calculation,
@@ -28,7 +28,7 @@ public class CryptoService {
     private static final int GCM_IV_LENGTH = 12; // 96 bits
     private static final int GCM_TAG_LENGTH = 16; // 128 bits
 
-    private static final Map<String, String> userCache = new HashMap<>();
+    private static final Map<String, String> userCache = new ConcurrentHashMap<>();
 
     static {
         Security.addProvider(new BouncyCastleProvider());
@@ -39,6 +39,10 @@ public class CryptoService {
     }
 
     public void addUser(String userId, String userName) {
+        boolean exists = userCache.containsKey(userId);
+        if (exists) {
+            return;
+        }
         userCache.put(userId, userName);
     }
 
